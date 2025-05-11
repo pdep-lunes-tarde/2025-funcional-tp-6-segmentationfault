@@ -6,10 +6,10 @@ import Control.Exception (evaluate)
 
 
 hamburguesaMegaTesteadora :: Hamburguesa
-hamburguesaMegaTesteadora {precioBase = 100, ingredientes= [Pan,Carne,Cheddar,Carne,Pan]}
+hamburguesaMegaTesteadora = Hamburguesa {precioBase = 100, ingredientes= [Pan,Carne,Cheddar,Carne,Pan]}
 
 hamburguesaMegaTesteadoraVeggie :: Hamburguesa
-hamburguesaMegaTesteadora {precioBase = 100, ingredientes= [PatiVegano, PatiVegano, Pan,Cheddar,Pan]}
+hamburguesaMegaTesteadoraVeggie = Hamburguesa {precioBase = 100, ingredientes= [PatiVegano, PatiVegano, Pan,Cheddar,Pan]}
 
 
 correrTests :: IO ()

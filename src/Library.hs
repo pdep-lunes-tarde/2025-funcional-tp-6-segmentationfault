@@ -18,21 +18,26 @@ precioIngrediente Curry = 5
 precioIngrediente QuesoDeAlmendras = 15
 precioIngrediente PatiVegano = 10
 precioIngrediente PanIntegral = 3
+precioIngrediente PancetaDeTofu = 10
 
 data Hamburguesa = Hamburguesa {
     precioBase :: Number,
     ingredientes :: [Ingrediente]
 } deriving (Eq, Show)
 
+precioFinal :: Hamburguesa -> Number
+precioFinal hamb = precioBase hamb + sum (map precioIngrediente (ingredientes hamb))
+
+
 agregarIngrediente :: Ingrediente -> Hamburguesa -> Hamburguesa
 agregarIngrediente ingrediente hamb =
-    hamb {precioBase = precioBase hamb + precioIngrediente ingrediente, ingredientes = ingrediente : ingredientes hamb}
+    hamb {ingredientes = ingrediente : ingredientes hamb}
 
 agrandar :: Hamburguesa -> Hamburguesa
 agrandar hamburguesa
-    | Carne `elem` ingredientes hamburguesa = hamburguesa {precioBase = precioBase hamburguesa + 20, ingredientes = Carne : ingredientes hamburguesa } -- no se podría usar la función agregarIngrediente para hacer más declarativo esto?
-    | Pollo `elem` ingredientes hamburguesa = hamburguesa {precioBase = precioBase hamburguesa + 10, ingredientes = Pollo : ingredientes hamburguesa}
-    | PatiVegano `elem` ingredientes hamburguesa = hamburguesa {precioBase = precioBase hamburguesa + 10, ingredientes = PatiVegano : ingredientes hamburguesa}
+    | Carne `elem` ingredientes hamburguesa = hamburguesa {ingredientes = Carne : ingredientes hamburguesa } -- no se podría usar la función agregarIngrediente para hacer más declarativo esto?
+    | Pollo `elem` ingredientes hamburguesa = hamburguesa {ingredientes = Pollo : ingredientes hamburguesa}
+    | PatiVegano `elem` ingredientes hamburguesa = hamburguesa {ingredientes = PatiVegano : ingredientes hamburguesa}
     | otherwise = hamburguesa { precioBase = precioBase hamburguesa + 20, ingredientes = Carne : ingredientes hamburguesa }
 
 

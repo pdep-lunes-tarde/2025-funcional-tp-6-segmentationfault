@@ -13,8 +13,8 @@
 
 - Nombre del grupo
 
-- Legajo: **Completar**
-- Nombre: **Completar**
+- Legajo: **209.104-5**
+- Nombre: **Nicolás Samir Mustafa**
 
 - Legajo: **Completar**
 - Nombre: **Completar**

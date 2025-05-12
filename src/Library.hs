@@ -6,7 +6,7 @@ import GHC.Arr (listArray)
 import Data.List (delete)
 
 data Ingrediente =
-    Carne | Pan | Panceta | Cheddar | Pollo | Curry | QuesoDeAlmendras | PatiVegano | PancetaDeTofu | PanIntegral
+    Carne | Pan | Panceta | Cheddar | Pollo | Curry | QuesoDeAlmendras | PatiVegano | PancetaDeTofu | PanIntegral | Papas
     deriving (Eq, Show)
 
 precioIngrediente Carne = 20
@@ -19,7 +19,7 @@ precioIngrediente QuesoDeAlmendras = 15
 precioIngrediente PatiVegano = 10
 precioIngrediente PanIntegral = 3
 precioIngrediente PancetaDeTofu = 10
-
+precioIngrediente Papas = 0
 data Hamburguesa = Hamburguesa {
     precioBase :: Number,
     ingredientes :: [Ingrediente]
@@ -35,10 +35,10 @@ agregarIngrediente ingrediente hamb =
 
 agrandar :: Hamburguesa -> Hamburguesa
 agrandar hamburguesa
-    | Carne `elem` ingredientes hamburguesa = hamburguesa {ingredientes = Carne : ingredientes hamburguesa } -- no se podría usar la función agregarIngrediente para hacer más declarativo esto?
+    | Carne `elem` ingredientes hamburguesa = hamburguesa {ingredientes = Carne : ingredientes hamburguesa } 
     | Pollo `elem` ingredientes hamburguesa = hamburguesa {ingredientes = Pollo : ingredientes hamburguesa}
     | PatiVegano `elem` ingredientes hamburguesa = hamburguesa {ingredientes = PatiVegano : ingredientes hamburguesa}
-    | otherwise = hamburguesa { precioBase = precioBase hamburguesa + 20, ingredientes = Carne : ingredientes hamburguesa }
+    | otherwise = hamburguesa {ingredientes = Carne : ingredientes hamburguesa }
 
 
 
@@ -59,6 +59,11 @@ pdepBurguer = descuento 20 . agregarIngrediente Cheddar . agregarIngrediente Pan
 dobleCuarto :: Hamburguesa
 dobleCuarto = agregarIngrediente Cheddar . agrandar $ cuartoDeLibra
 
+bigPdep :: Hamburguesa
+bigPdep = agregarIngrediente Curry dobleCuarto
+
+delDia :: Hamburguesa -> Hamburguesa
+delDia = descuento 30 . agregarIngrediente Papas
 
 reemplazarIngredientePorOtro :: Ingrediente -> Ingrediente -> Hamburguesa -> Hamburguesa 
 reemplazarIngredientePorOtro reemplazado sustituto hamburguesa = hamburguesa {ingredientes = replicate (length (filter (/= reemplazado) (ingredientes hamburguesa))) sustituto ++ filter (/= reemplazado) (ingredientes hamburguesa)}

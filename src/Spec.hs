@@ -60,12 +60,16 @@ testsParteIII =
         describe "hacerVeggie" $ do
             it "Dada una hamburguesa con carne o pollo, reemplaza dichos ingredientes por un número igual de patis veganas. Además, cambia la panceta y el cheddar por panceta de tofu y queso de almendras respectivamente." $ do
                 hacerVeggie (Hamburguesa 0 [Pan, Carne, Pollo, Cheddar, Panceta, Pan]) `shouldBe` Hamburguesa 0 [PatiVegano, PatiVegano, QuesoDeAlmendras, PancetaDeTofu, Pan, Pan]
+            it "Dada una hamburguesa vacía, devuelve otra vacía." $ do
+                hacerVeggie (Hamburguesa 0 [])  `shouldBe` Hamburguesa 0 []
         --describe "reemplazarUnIngredientePorOtro" $ do
             --it "test" $ do
                 --reemplazarIngredientePorOtro Carne Pollo (Hamburguesa 0 [Carne]) `shouldBe` Hamburguesa 0 [Pollo]
         describe "cambiarPanDePati" $ do
             it "Cambia el pan de una hamburguesa por pan integral." $ do
                 cambiarPandePati (Hamburguesa 0 [Pan, Pan, Pan, Pan, Pan, Papas, Pan, Pan, Pan, Pan, Pan]) `shouldBe` Hamburguesa 0 [PanIntegral, PanIntegral, PanIntegral, PanIntegral, PanIntegral, PanIntegral, PanIntegral, PanIntegral, PanIntegral, PanIntegral, Papas]
+            it "Si la hamburguesa no tiene pan, no cambia nada." $ do
+                cambiarPandePati (Hamburguesa 0 [Cheddar, Carne, Papas]) `shouldBe` Hamburguesa 0 [Cheddar, Carne, Papas]
         describe "dobleCuartoVegano" $ do
             it "El Doble Cuarto Vegano tiene la siguiente lista de ingredientes: [PatiVegano, PatiVegano, QuesoDeAlmendras, PanIntegral, PanIntegral]." $ do
-                ingredientes dobleCuartoVeggie `shouldBe` [PatiVegano, PatiVegano, QuesoDeAlmendras, PanIntegral, PanIntegral]
+                ingredientes dobleCuartoVeggie `shouldBe` [PatiVegano, PatiVegano, QuesoDeAlmendras, QuesoDeAlmendras, PanIntegral, PanIntegral]

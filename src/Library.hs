@@ -19,7 +19,7 @@ precioIngrediente QuesoDeAlmendras = 15
 precioIngrediente PatiVegano = 10
 precioIngrediente PanIntegral = 3
 precioIngrediente PancetaDeTofu = 10
-precioIngrediente Papas = 0
+precioIngrediente Papas = 10
 data Hamburguesa = Hamburguesa {
     precioBase :: Number,
     ingredientes :: [Ingrediente]
@@ -66,7 +66,7 @@ delDia :: Hamburguesa -> Hamburguesa
 delDia = descuento 30 . agregarIngrediente Papas
 
 reemplazarIngredientePorOtro :: Ingrediente -> Ingrediente -> Hamburguesa -> Hamburguesa 
-reemplazarIngredientePorOtro reemplazado sustituto hamburguesa = hamburguesa {ingredientes = replicate (length (filter (/= reemplazado) (ingredientes hamburguesa))) sustituto ++ filter (/= reemplazado) (ingredientes hamburguesa)}
+reemplazarIngredientePorOtro reemplazado sustituto hamburguesa = hamburguesa {ingredientes = replicate (length (filter (== reemplazado) (ingredientes hamburguesa))) sustituto ++ filter (/= reemplazado) (ingredientes hamburguesa)}
 
 
 hacerVeggie :: Hamburguesa -> Hamburguesa

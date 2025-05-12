@@ -11,8 +11,9 @@ hamburguesaVacia = Hamburguesa 0 []
 
 correrTests :: IO ()
 correrTests = hspec $ do
-    focus testsParteI
+    testsParteI
     testsParteII
+    focus testsParteIII
 
 testsParteI =
     describe "Tests Parte I: Hamburguesas" $ do
@@ -54,3 +55,17 @@ testsParteII =
             it "Dada una hamburguesa, añade papas y realiza un descuento del 30% sobre el precio base." $ do
                 delDia (Hamburguesa 10 [Pan, Carne, Cheddar, Pan]) `shouldBe` Hamburguesa 7 [Papas, Carne, Cheddar, Pan]
 
+testsParteIII =
+    describe "Tests Parte III: Algunos cambios más." $ do
+        describe "hacerVeggie" $ do
+            it "Dada una hamburguesa con carne o pollo, reemplaza dichos ingredientes por un número igual de patis veganas. Además, cambia la panceta y el cheddar por panceta de tofu y queso de almendras respectivamente." $ do
+                hacerVeggie (Hamburguesa 0 [Pan, Carne, Pollo, Cheddar, Panceta, Pan]) `shouldBe` Hamburguesa 0 [PatiVegano, PatiVegano, QuesoDeAlmendras, PancetaDeTofu, Pan, Pan]
+        --describe "reemplazarUnIngredientePorOtro" $ do
+            --it "test" $ do
+                --reemplazarIngredientePorOtro Carne Pollo (Hamburguesa 0 [Carne]) `shouldBe` Hamburguesa 0 [Pollo]
+        describe "cambiarPanDePati" $ do
+            it "Cambia el pan de una hamburguesa por pan integral." $ do
+                cambiarPandePati (Hamburguesa 0 [Pan, Pan, Pan, Pan, Pan, Papas, Pan, Pan, Pan, Pan, Pan]) `shouldBe` Hamburguesa 0 [PanIntegral, PanIntegral, PanIntegral, PanIntegral, PanIntegral, PanIntegral, PanIntegral, PanIntegral, PanIntegral, PanIntegral, Papas]
+        describe "dobleCuartoVegano" $ do
+            it "El Doble Cuarto Vegano tiene la siguiente lista de ingredientes: [PatiVegano, PatiVegano, QuesoDeAlmendras, PanIntegral, PanIntegral]." $ do
+                ingredientes dobleCuartoVeggie `shouldBe` [PatiVegano, PatiVegano, QuesoDeAlmendras, PanIntegral, PanIntegral]
